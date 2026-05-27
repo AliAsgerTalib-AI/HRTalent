@@ -1,0 +1,6 @@
+{
+  "name": "TalentFlow",
+  "description": "An enterprise recruitment suite for listing job opportunities, managing candidates, evaluation scorecard metrics, and pipeline stages.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
