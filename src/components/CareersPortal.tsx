@@ -91,11 +91,11 @@ export function CareersPortal({ jobs, onApply, onClosePortal }: CareersPortalPro
       
       {/* Careers Portal Nav Header */}
       <header className="border-b-2 border-slate-900 bg-white sticky top-0 z-30 select-none">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 sm:py-5 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4 sm:gap-8">
             <div className="flex items-center gap-2">
-              <span className="bg-slate-900 text-white w-9 h-9 rounded-xl flex items-center justify-center font-mono font-black text-sm border-2 border-slate-950 shadow-[2px_2px_0px_0px_#000]">TF</span>
-              <span className="font-display font-black text-2xl tracking-tight text-slate-900">TalentFlow</span>
+              <span className="hidden sm:flex bg-slate-900 text-white w-9 h-9 rounded-xl items-center justify-center font-mono font-black text-sm border-2 border-slate-950 shadow-[2px_2px_0px_0px_#000] shrink-0">TF</span>
+              <span className="font-display font-black text-xl sm:text-2xl tracking-tight text-slate-900">TalentFlow</span>
             </div>
             <nav className="hidden md:flex items-center gap-6">
               <span className="text-xs font-extrabold text-slate-900 border-b-2 border-slate-900 pb-1 cursor-pointer">Careers</span>
@@ -104,45 +104,45 @@ export function CareersPortal({ jobs, onApply, onClosePortal }: CareersPortalPro
             </nav>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-3 sm:gap-6 shrink-0">
             <button
               onClick={() => {
                 const mail = prompt('Enter your applied email address to check status:');
                 if (mail) alert(`No active interview pipeline found for: ${mail}. Please apply below to trigger direct evaluation!`);
               }}
-              className="text-xs font-mono font-extrabold hover:underline text-slate-800 cursor-pointer uppercase tracking-wider"
+              className="text-[10px] sm:text-xs font-mono font-extrabold hover:underline text-slate-800 cursor-pointer uppercase tracking-wider shrink-0"
             >
-              Track Application Status
+              Track Status
             </button>
             <button
               onClick={onClosePortal}
               id="btn-return-recruiter-suite"
-              className="px-4.5 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-wider font-mono hover:bg-slate-800 cursor-pointer shadow-[2px_2px_0px_0px_#000] border border-slate-950 transition"
+              className="px-3 sm:px-4 py-2 bg-slate-900 text-white rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider font-mono hover:bg-slate-800 cursor-pointer shadow-[2px_2px_0px_0px_#000] border border-slate-950 transition shrink-0"
             >
-              Return to Recruiter Suite
+              Exit Portal
             </button>
           </div>
         </div>
       </header>
 
       {/* Hero Display banner with recruitment text */}
-      <section className="bg-white border-b-2 border-slate-900 py-16 px-6 relative overflow-hidden">
+      <section className="bg-white border-b-2 border-slate-900 py-12 sm:py-16 px-4 sm:px-6 relative overflow-hidden">
         {/* Background decorative grid pattern */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]" />
         
         <div className="max-w-4xl mx-auto space-y-6 text-center relative z-10">
-          <h1 className="font-display text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-none uppercase">
+          <h1 className="font-display text-3xl sm:text-6xl font-black text-slate-900 tracking-tight leading-none uppercase">
             Shape the future of <br />
-            <span className="text-indigo-600 bg-indigo-50 border-2 border-indigo-600 px-4 py-1.5 rounded-2xl inline-block mt-3 shadow-[4px_4px_0px_0px_rgba(79,70,229,1)]">Recruitment Tech</span>
+            <span className="text-indigo-600 bg-indigo-50 border-2 border-indigo-600 px-3 sm:px-4 py-1.5 rounded-xl sm:rounded-2xl inline-block mt-3 shadow-[4px_4px_0px_0px_rgba(79,70,229,1)]">Recruitment Tech</span>
           </h1>
-          <p className="text-sm sm:text-base text-slate-650 leading-relaxed max-w-2xl mx-auto font-medium pt-3">
+          <p className="text-xs sm:text-base text-slate-650 leading-relaxed max-w-2xl mx-auto font-medium pt-3">
             Help us build the most efficient HR ecosystem in the world. We are looking for dreamers, designers, builders, and leaders to join our global mission today.
           </p>
         </div>
       </section>
 
       {/* Core Search & Listings grid layout */}
-      <main className="max-w-7xl mx-auto px-6 py-12 space-y-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-6 sm:space-y-8">
         
         {/* Search Matrix filter block */}
         <div className="bg-[#fffbeb] border-2 border-slate-900 p-4.5 rounded-2xl shadow-[4px_4px_0px_0px_#0f172a] grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
@@ -227,7 +227,7 @@ export function CareersPortal({ jobs, onApply, onClosePortal }: CareersPortalPro
               filteredJobs.map((job) => (
                 <div
                   key={job.id}
-                  className="bg-white border-2 border-slate-900 hover:border-slate-950 p-6 rounded-3xl flex flex-col justify-between transition relative group shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[7px_7px_0px_0px_#0f172a]"
+                  className="bg-white border-2 border-slate-900 hover:border-slate-950 p-4 sm:p-6 rounded-2xl sm:rounded-3xl flex flex-col justify-between transition relative group shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[7px_7px_0px_0px_#0f172a]"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="inline-flex items-center gap-2">
@@ -284,7 +284,7 @@ export function CareersPortal({ jobs, onApply, onClosePortal }: CareersPortalPro
           <div className="lg:col-span-4 space-y-6">
             
             {/* Already Applied? Dark box */}
-            <div className="bg-slate-900 text-white p-6 rounded-3xl border-2 border-slate-950 shadow-[4px_4px_0px_0px_#0f172a] space-y-4">
+            <div className="bg-slate-900 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border-2 border-slate-950 shadow-[4px_4px_0px_0px_#0f172a] space-y-4">
               <h3 className="font-display text-xl font-black uppercase tracking-tight text-white leading-tight">Already Applied?</h3>
               <p className="text-xs text-slate-400 font-sans leading-relaxed">
                 Track your application status, manage interviews, and message your recruiter through our unified portal coordinates.
@@ -330,7 +330,7 @@ export function CareersPortal({ jobs, onApply, onClosePortal }: CareersPortalPro
             </div>
 
             {/* Why TalentFlow Checklist */}
-            <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl shadow-[4px_4px_0px_0px_#0f172a] space-y-4">
+            <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-[4px_4px_0px_0px_#0f172a] space-y-4">
               <h3 className="font-display text-base font-black text-slate-900 uppercase">Why TalentFlow?</h3>
               <div className="space-y-3">
                 {[
@@ -348,7 +348,7 @@ export function CareersPortal({ jobs, onApply, onClosePortal }: CareersPortalPro
             </div>
 
             {/* Manhattan office workspace photo */}
-            <div className="relative rounded-3xl overflow-hidden border-2 border-slate-900 group aspect-video shadow-[4px_4px_0px_0px_#0f172a]">
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-slate-900 group aspect-video shadow-[4px_4px_0px_0px_#0f172a]">
               <img
                 src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=400"
                 alt="HQ Office"
@@ -369,7 +369,7 @@ export function CareersPortal({ jobs, onApply, onClosePortal }: CareersPortalPro
       {/* Dynamic Pop-up Apply Modal */}
       {applyModalOpen && selectedJob && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl max-w-lg w-full space-y-4 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] relative animate-fadeIn">
+          <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl max-w-lg w-full space-y-4 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] relative animate-fadeIn">
             {/* Close button */}
             <button
               onClick={() => {

@@ -115,19 +115,19 @@ export function CandidatesView({
     <div className="flex-1 overflow-y-auto bg-[#faf9f5]" id="candidates-workspace-view">
       {candidate ? (
         /* ================= EVALUATOR DOSSIER MODE ================= */
-        <div className="p-8 max-w-7xl mx-auto space-y-6" id="candidate-dossier-full">
+        <div className="p-4 sm:p-8 max-w-7xl mx-auto space-y-6" id="candidate-dossier-full">
           
           {/* Back Trigger and Navigation breadcrumbs */}
           <div className="flex items-center justify-between border-b-2 border-slate-900 pb-4">
             <button
               onClick={onClearSelectedCandidate}
-              className="flex items-center gap-2 group text-xs font-bold font-mono tracking-wider bg-white px-4 py-2 border-2 border-slate-900 rounded-2xl hover:bg-slate-50 transition shadow-[2px_2px_0px_0px_#000] active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_#000] shrink-0"
+              className="flex items-center gap-1.5 xs:gap-2 group text-xs font-bold font-mono tracking-wider bg-white px-3 sm:px-4 py-2 border-2 border-slate-900 rounded-2xl hover:bg-slate-50 transition shadow-[2px_2px_0px_0px_#000] active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_#000] shrink-0"
             >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              <span>Back to Candidates</span>
+              <span>Back<span className="hidden xs:inline"> to Candidates</span></span>
             </button>
-            <div className="text-right text-xs text-slate-500 font-mono leading-relaxed select-none">
-              Jobs / <span className="text-slate-900 font-bold">{candidate.jobTitle}</span> / Candidate Profile
+            <div className="hidden sm:block text-right text-xs text-slate-500 font-mono leading-relaxed select-none max-w-[200px] md:max-w-[400px] truncate">
+              Jobs / <span className="text-slate-900 font-bold">{candidate.jobTitle.split('•')[0]}</span> / Profile
             </div>
           </div>
 
@@ -137,7 +137,7 @@ export function CandidatesView({
             <div className="lg:col-span-8 space-y-6">
               
               {/* Primary Profile Spotlight Card */}
-              <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl flex flex-col md:flex-row items-start md:items-center gap-6 relative shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#0f172a] transition-all">
+              <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl flex flex-col md:flex-row items-start md:items-center gap-6 relative shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_0px_#0f172a] transition-all">
                 {/* Image */}
                 <img
                   src={candidate.avatar}
@@ -198,7 +198,7 @@ export function CandidatesView({
               </div>
 
               {/* Progress Stepper Stages */}
-              <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl shadow-[6px_6px_0px_0px_#0f172a] space-y-4">
+              <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-[6px_6px_0px_0px_#0f172a] space-y-4">
                 <h3 className="text-xs font-extrabold font-mono text-slate-400 uppercase tracking-wider">Evaluation Pipeline</h3>
                 
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-2">
@@ -247,7 +247,7 @@ export function CandidatesView({
               {/* Tab menu & Rich evaluative output panels */}
               <div className="bg-white border-2 border-slate-900 rounded-3xl overflow-hidden shadow-[6px_6px_0px_0px_#0f172a]">
                 {/* Nested menu */}
-                <div className="flex border-b-2 border-slate-900 bg-[#eff6ff] px-6">
+                <div className="flex border-b-2 border-slate-900 bg-[#eff6ff] px-4 overflow-x-auto whitespace-nowrap scrollbar-none">
                   {[
                     { id: 'resume', label: 'Resume' },
                     { id: 'notes', label: 'Interview Notes' },
@@ -257,7 +257,7 @@ export function CandidatesView({
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id as any)}
-                      className={`py-4 px-4 font-display font-black text-xs mr-2 transition-all cursor-pointer ${
+                      className={`shrink-0 py-4 px-3.5 font-display font-black text-xs mr-1 transition-all cursor-pointer ${
                         activeTab === tab.id
                           ? 'text-slate-900 pb-[14px] border-b-4 border-slate-905'
                           : 'text-slate-500 hover:text-slate-900'
@@ -269,7 +269,7 @@ export function CandidatesView({
                 </div>
 
                 {/* Living Output Panel */}
-                <div className="p-8">
+                <div className="p-4 sm:p-8">
                   {activeTab === 'resume' && (
                     <div className="space-y-6 leading-relaxed">
                       <div className="space-y-2">
@@ -415,7 +415,7 @@ export function CandidatesView({
             <div className="lg:col-span-4 space-y-6">
               
               {/* Pipeline Actions Card */}
-              <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl space-y-4 shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
+              <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-4 shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
                 <h3 className="text-xs font-extrabold font-mono text-slate-400 uppercase tracking-wider border-b-2 border-slate-900 pb-2">Pipeline Actions</h3>
 
                 <button
@@ -463,7 +463,7 @@ export function CandidatesView({
               </div>
 
               {/* Scorecard Summary Card */}
-              <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl space-y-4 shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
+              <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-4 shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
                 <div className="flex items-center justify-between border-b-2 border-slate-900 pb-2">
                   <h3 className="text-xs font-extrabold font-mono text-slate-400 uppercase tracking-wider">Scorecard</h3>
                   <button
@@ -509,7 +509,7 @@ export function CandidatesView({
               </div>
 
               {/* Dossier Timeline Activity Card */}
-              <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl space-y-4 shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
+              <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-4 shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
                 <h3 className="text-xs font-extrabold font-mono text-slate-400 uppercase tracking-wider border-b-2 border-slate-900 pb-2">Timeline</h3>
                 
                 <div className="space-y-4 relative pl-4 border-l-2 border-slate-900">
@@ -532,7 +532,7 @@ export function CandidatesView({
               </div>
 
               {/* Hiring Team Card */}
-              <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl space-y-4 shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
+              <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-4 shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
                 <h3 className="text-xs font-extrabold font-mono text-slate-400 uppercase tracking-wider border-b-2 border-slate-900 pb-2">Hiring Team</h3>
                 
                 <div className="flex items-center justify-between">
@@ -575,16 +575,16 @@ export function CandidatesView({
         </div>
       ) : (
         /* ================= STANDARD LIST MODE ================= */
-        <div className="p-8 max-w-7xl mx-auto space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b-2 border-slate-900 pb-5">
+        <div className="p-4 sm:p-8 max-w-7xl mx-auto space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b-2 border-slate-900 pb-5">
             <div>
-              <h2 className="font-display text-3xl font-black text-slate-900">Candidates Board</h2>
+              <h2 className="font-display text-2xl xs:text-3xl font-black text-slate-900">Candidates Board</h2>
               <p className="text-xs text-slate-500 font-semibold mt-1">
                 Evaluate scores, screen resume parameters, and trigger pipeline transitions.
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 w-full sm:w-auto">
               {/* Direct search */}
               <input
                 type="text"
@@ -598,7 +598,7 @@ export function CandidatesView({
               <select
                 value={stageFilter}
                 onChange={(e) => setStageFilter(e.target.value)}
-                className="px-4 py-2.5 bg-white border-2 border-slate-900 rounded-xl text-xs font-black"
+                className="px-4 py-2.5 bg-white border-2 border-slate-900 rounded-xl text-xs font-black w-full sm:w-auto"
               >
                 <option value="All">All Stages</option>
                 <option value="Applied">Applied</option>

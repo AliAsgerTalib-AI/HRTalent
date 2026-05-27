@@ -31,27 +31,27 @@ export function DashboardView({
   const interviewCount = candidates.filter((c) => c.stage === 'Interview').length;
 
   return (
-    <div className="flex-1 overflow-y-auto bg-[#faf9f5] p-8 space-y-8 select-none" id="recruiter-dashboard-view">
+    <div className="flex-1 overflow-y-auto bg-[#faf9f5] p-4 sm:p-8 space-y-6 sm:space-y-8 select-none" id="recruiter-dashboard-view">
       {/* Top Welcome Title Grid */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="font-display text-4xl font-black tracking-tight text-slate-900">Recruiter Overview</h2>
-          <p className="font-sans text-sm text-slate-600 mt-2 font-medium">
+          <h2 className="font-display text-2xl xs:text-3xl sm:text-4xl font-black tracking-tight text-slate-900">Recruiter Overview</h2>
+          <p className="font-sans text-xs sm:text-sm text-slate-600 mt-2 font-medium">
             Welcome back, <span className="text-slate-900 font-bold">{settings.recruiterName}</span>. You have <span className="text-rose-600 font-bold underline decoration-rose-500 decoration-2">{tasks.length} urgent tasks</span> requiring attention today.
           </p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 w-full sm:w-auto shrink-0">
           <button
             onClick={onAddCandidateClick}
             id="dash-add-candidate-btn"
-            className="px-5 py-3 bg-white border-2 border-slate-900 rounded-2xl text-xs font-bold font-mono uppercase tracking-wider text-slate-900 shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[6px_6px_0px_0px_#0f172a] active:translate-y-0.5 active:translate-x-0.5 active:shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer"
+            className="flex-1 sm:flex-initial text-center px-4 sm:px-5 py-3 bg-white border-2 border-slate-900 rounded-2xl text-[11px] sm:text-xs font-bold font-mono uppercase tracking-wider text-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_0px_#0f172a] active:translate-y-0.5 active:translate-x-0.5 active:shadow-[1px_1px_0px_0px_#0f172a] transition-all cursor-pointer"
           >
             Add Candidate
           </button>
           <button
             onClick={onCreateJobClick}
             id="dash-create-job-btn"
-            className="px-5 py-3 bg-emerald-400 border-2 border-slate-900 rounded-2xl text-xs font-bold font-mono uppercase tracking-wider text-slate-900 shadow-[4px_4px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[6px_6px_0px_0px_#0f172a] active:translate-y-0.5 active:translate-x-0.5 active:shadow-[2px_2px_0px_0px_#0f172a] transition-all cursor-pointer"
+            className="flex-1 sm:flex-initial text-center px-4 sm:px-5 py-3 bg-emerald-400 border-2 border-slate-900 rounded-2xl text-[11px] sm:text-xs font-bold font-mono uppercase tracking-wider text-slate-900 shadow-[2px_2px_0px_0px_#0f172a] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_0px_#0f172a] active:translate-y-0.5 active:translate-x-0.5 active:shadow-[1px_1px_0px_0px_#0f172a] transition-all cursor-pointer"
           >
             Create Job
           </button>
@@ -184,7 +184,7 @@ export function DashboardView({
                   <button
                     onClick={() => onCompleteTask(task.id)}
                     title="Complete task"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all px-2.5 py-1.5 bg-emerald-400 border-2 border-slate-900 text-slate-900 rounded-xl cursor-pointer shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-[3px_3px_0px_0px_#0f172a] text-xs font-black uppercase tracking-wider font-mono"
+                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all px-2.5 py-1.5 bg-emerald-400 border-2 border-slate-900 text-slate-900 rounded-xl cursor-pointer shadow-[1.5px_1.5px_0px_0px_#0f172a] sm:shadow-[2px_2px_0px_0px_#0f172a] hover:shadow-[3px_3px_0px_0px_#0f172a] text-[10px] sm:text-xs font-black uppercase tracking-wider font-mono"
                   >
                     Done
                   </button>

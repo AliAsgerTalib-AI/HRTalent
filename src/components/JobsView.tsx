@@ -21,6 +21,7 @@ export function JobsView({
 }: JobsViewProps) {
   // Search state
   const [searchTerm, setSearchTerm] = useState('');
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
 
   // Filtering states from Screenshot 1 Left Panel
   const [statusFilter, setStatusFilter] = useState<'Active' | 'Draft' | 'Closed' | 'All'>('All');
@@ -130,7 +131,29 @@ export function JobsView({
       
       {/* 1. Left sub-sidebar - Search filter options */}
       {!isCreateMode && (
-        <div className="w-64 border-r-2 border-slate-900 bg-[#fffdfa] p-6 space-y-8 shrink-0 overflow-y-auto">
+        <>
+          {/* Backdrop for mobile */}
+          {isMobileFiltersOpen && (
+            <div 
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 lg:hidden"
+              onClick={() => setIsMobileFiltersOpen(false)}
+            />
+          )}
+
+          <div className={`
+            ${isMobileFiltersOpen ? 'fixed top-0 bottom-0 left-0 z-50 w-72 h-full border-r-2 border-slate-900 bg-[#fffdfa] p-6 space-y-8 overflow-y-auto shadow-2xl block' : 'hidden'}
+            lg:static lg:block lg:w-64 lg:border-r-2 lg:border-slate-905 lg:bg-[#fffdfa] lg:p-6 lg:space-y-8 lg:shrink-0 lg:overflow-y-auto lg:shadow-none transition-all duration-300
+          `}>
+            {/* If on mobile, add a close button at top */}
+            <div className="flex lg:hidden items-center justify-between border-b-2 border-slate-900 pb-3">
+              <span className="font-display text-base font-black text-slate-900">Filters</span>
+              <button 
+                onClick={() => setIsMobileFiltersOpen(false)}
+                className="p-1 border-2 border-slate-900 rounded-lg bg-white text-slate-800 cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           {/* Status Filter block */}
           <div className="space-y-4">
             <h4 className="text-xs font-extrabold font-mono text-slate-800 uppercase tracking-wider border-b-2 border-slate-900 pb-2">Status</h4>
@@ -245,13 +268,14 @@ export function JobsView({
             </div>
           </div>
         </div>
-      )}
+      </>
+    )}
 
       {/* 2. Main central Workspace */}
       <div className="flex-1 flex flex-col min-w-0 bg-[#faf9f5]">
         {isCreateMode ? (
           /* POST A NEW JOB VIEW */
-          <div className="flex-1 overflow-y-auto p-8 space-y-8" id="post-job-workspace-scroll">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6 sm:space-y-8" id="post-job-workspace-scroll">
             {/* Action Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b-2 border-slate-900 pb-6 gap-4">
               <div>
@@ -288,7 +312,7 @@ export function JobsView({
               <div className="lg:col-span-7 space-y-6">
                 
                 {/* Job Basics card */}
-                <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl space-y-6 shadow-[4px_4px_0px_0px_#0f172a]">
+                <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-6 shadow-[4px_4px_0px_0px_#0f172a]">
                   <h3 className="font-display text-base font-extrabold text-slate-900 border-b-2 border-slate-900 pb-3">Job Basics</h3>
                   
                   <div className="space-y-2">
@@ -370,7 +394,7 @@ export function JobsView({
                 </div>
 
                 {/* Job Description card */}
-                <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl space-y-4 shadow-[4px_4px_0px_0px_#0f172a]">
+                <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-4 shadow-[4px_4px_0px_0px_#0f172a]">
                   <h3 className="font-display text-base font-extrabold text-slate-900 border-b-2 border-slate-900 pb-3">Job Description</h3>
                   
                   {/* Rich text simulator bar */}
@@ -415,7 +439,7 @@ export function JobsView({
               <div className="lg:col-span-5 space-y-6">
                 
                 {/* Publishing Channels card */}
-                <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl space-y-4 shadow-[4px_4px_0px_0px_#0f172a]">
+                <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-4 shadow-[4px_4px_0px_0px_#0f172a]">
                   <h3 className="font-display text-base font-extrabold text-slate-900 border-b-2 border-slate-900 pb-2">Publishing</h3>
                   <div className="space-y-4 pt-1">
                     {[
@@ -445,7 +469,7 @@ export function JobsView({
                 </div>
 
                 {/* Team Assignments card */}
-                <div className="bg-white border-2 border-slate-900 p-6 rounded-3xl space-y-4 shadow-[4px_4px_0px_0px_#0f172a]">
+                <div className="bg-white border-2 border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl space-y-4 shadow-[4px_4px_0px_0px_#0f172a]">
                   <h3 className="font-display text-base font-extrabold text-slate-900 border-b-2 border-slate-900 pb-2">Hiring Team</h3>
                   <div className="space-y-4 pt-1">
                     <div className="flex items-center justify-between gap-4">
@@ -480,7 +504,7 @@ export function JobsView({
                 </div>
 
                 {/* Live Preview block */}
-                <div className="bg-slate-900 text-white p-6 rounded-3xl shadow-[4px_4px_0px_0px_#0f172a] border-2 border-slate-950 space-y-3">
+                <div className="bg-slate-900 text-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-[4px_4px_0px_0px_#0f172a] border-2 border-slate-950 space-y-3">
                   <span className="text-[9px] uppercase font-mono tracking-widest text-[#6cf8bb] font-extrabold px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700">Live Preview</span>
                   <div className="space-y-1.5 mt-2.5">
                     <h4 className="font-display text-2xl font-extrabold tracking-tight text-white leading-tight">
@@ -502,36 +526,44 @@ export function JobsView({
           <div className="flex-1 flex overflow-hidden">
             
             {/* Core listing panel (width: 100% minus right Drawer) */}
-            <div className="flex-1 flex flex-col overflow-y-auto p-8 space-y-6">
+            <div className="flex-1 flex flex-col overflow-y-auto p-4 sm:p-8 space-y-6">
               
               {/* Header and Add / Search triggers */}
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b-2 border-slate-900 pb-5">
                 <div>
-                  <h2 className="font-display text-3xl font-black text-slate-900">Jobs Workspace</h2>
+                  <h2 className="font-display text-2xl xs:text-3xl font-black text-slate-900">Jobs Workspace</h2>
                   <p className="text-xs text-slate-500 mt-1 font-semibold font-sans">
                     Monitor, customize, and configure your active career recruitment opportunities.
                   </p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 w-full md:w-auto">
                   {/* Small Search */}
-                  <div className="relative">
+                  <div className="relative flex-1 md:flex-initial">
                     <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
                     <input
                       type="text"
                       placeholder="Search postings..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-10 pr-4 py-2.5 bg-white border-2 border-slate-900 rounded-xl text-xs placeholder-slate-400 w-48 md:w-64 focus:w-72 transition-all font-bold"
+                      className="pl-10 pr-4 py-2.5 bg-white border-2 border-slate-900 rounded-xl text-xs placeholder-slate-400 w-full md:w-64 focus:w-72 transition-all font-bold"
                     />
                   </div>
+                  {/* Mobile Filters trigger button */}
+                  <button
+                    onClick={() => setIsMobileFiltersOpen(true)}
+                    className="lg:hidden p-2.5 border-2 border-slate-900 rounded-xl bg-white text-slate-800 cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-[#fff7ed] transition active:translate-y-0.5"
+                    title="Filters"
+                  >
+                    <Filter className="w-4 h-4 stroke-[2.5]" />
+                  </button>
                   {/* Toggle Create view button */}
                   <button
                     onClick={() => setIsCreateMode(true)}
                     id="jobs-btn-post-new"
-                    className="p-2.5 bg-emerald-400 border-2 border-slate-900 text-slate-900 rounded-xl hover:bg-emerald-300 flex items-center gap-1.5 px-4 text-xs font-black uppercase tracking-wider font-mono shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] cursor-pointer transition-all"
+                    className="p-2.5 bg-emerald-400 border-2 border-slate-900 text-slate-900 rounded-xl hover:bg-emerald-300 flex items-center gap-1.5 px-3 sm:px-4 text-xs font-black uppercase tracking-wider font-mono shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] cursor-pointer transition-all"
                   >
                     <Plus className="w-4 h-4 stroke-[2.5]" />
-                    <span>Post Job</span>
+                    <span>Post<span className="hidden xs:inline"> Job</span></span>
                   </button>
                 </div>
               </div>
@@ -539,12 +571,12 @@ export function JobsView({
               {/* Table / Row Display of Listings - Styled as beautiful robust list */}
               <div className="bg-white border-2 border-slate-900 rounded-3xl overflow-hidden shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all">
                 {/* Table Headers */}
-                <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-[#eff6ff] border-b-2 border-slate-900 text-[10px] font-extrabold font-mono text-slate-900 uppercase tracking-wider select-none text-left">
-                  <div className="col-span-5 md:col-span-4">Job Title</div>
-                  <div className="col-span-2">Department</div>
-                  <div className="col-span-3 md:col-span-3">Hiring Manager</div>
-                  <div className="col-span-1 text-center">Apps</div>
-                  <div className="col-span-2 text-right">Status</div>
+                <div className="grid grid-cols-12 gap-2 px-4 sm:px-6 py-4 bg-[#eff6ff] border-b-2 border-slate-900 text-[10px] font-extrabold font-mono text-slate-900 uppercase tracking-wider select-none text-left">
+                  <div className="col-span-7 sm:col-span-7 md:col-span-4">Job Title</div>
+                  <div className="hidden sm:block col-span-2">Department</div>
+                  <div className="hidden md:block col-span-3">Hiring Manager</div>
+                  <div className="col-span-2 sm:col-span-1 text-center">Apps</div>
+                  <div className="col-span-3 sm:col-span-2 text-right">Status</div>
                 </div>
 
                 <div className="divide-y-2 divide-slate-900">
@@ -569,29 +601,33 @@ export function JobsView({
                             setSelectedJob(job);
                             setDrawerOpen(true);
                           }}
-                          className={`grid grid-cols-12 gap-4 px-6 py-5 hover:bg-slate-50/70 items-center cursor-pointer transition ${
+                          className={`grid grid-cols-12 gap-2 px-4 sm:px-6 py-5 hover:bg-slate-50/70 items-center cursor-pointer transition ${
                             isActive ? 'bg-amber-100/60 border-l-8 border-slate-900' : ''
                           }`}
                         >
                           {/* Title Element */}
-                          <div className="col-span-5 md:col-span-4 min-w-0 pr-2">
-                            <h4 className="font-display font-extrabold text-slate-900 text-sm lg:text-base tracking-tight leading-snug">
+                          <div className="col-span-7 sm:col-span-7 md:col-span-4 min-w-0 pr-2">
+                            <h4 className="font-display font-extrabold text-slate-900 text-xs sm:text-sm lg:text-base tracking-tight leading-snug">
                               {job.title}
                             </h4>
-                            <p className="text-[10px] text-slate-500 font-bold font-mono uppercase mt-1">
-                              Posted {job.postedAt} • {job.location}
+                            <p className="text-[9px] sm:text-[10px] text-slate-500 font-bold font-mono uppercase mt-1">
+                              Posted {job.postedAt} <span className="hidden xs:inline">• {job.location}</span>
                             </p>
+                            {/* Department inline badge for mobile only */}
+                            <span className="inline-block sm:hidden text-[9px] font-extrabold text-indigo-700 bg-indigo-50 border border-slate-300 px-1.5 py-0.5 mt-1 rounded">
+                              {job.department}
+                            </span>
                           </div>
 
                           {/* Department */}
-                          <div className="col-span-2">
-                            <span className="text-xs font-extrabold text-slate-900 bg-slate-150 border border-slate-900 px-2 py-0.5 rounded-md">
+                          <div className="hidden sm:block col-span-2">
+                            <span className="text-xs font-extrabold text-slate-900 bg-slate-150 border border-slate-905 px-2 py-0.5 rounded-md">
                               {job.department}
                             </span>
                           </div>
 
                           {/* Hiring Manager */}
-                          <div className="col-span-3 md:col-span-3 flex items-center gap-2.5">
+                          <div className="hidden md:flex col-span-3 items-center gap-2.5">
                             <div className="w-8 h-8 rounded-xl bg-slate-900 text-white shrink-0 flex items-center justify-center font-mono font-black text-xs border border-slate-950">
                               {job.hiringManager.split(' ').map((n) => n[0]).join('')}
                             </div>
@@ -601,29 +637,29 @@ export function JobsView({
                           </div>
 
                           {/* Applicants Count */}
-                          <div className="col-span-1 text-center font-mono font-black text-sm text-slate-905 bg-slate-100 border border-slate-900 rounded-lg py-1">
+                          <div className="col-span-2 sm:col-span-1 text-center font-mono font-black text-xs sm:text-sm text-slate-905 bg-slate-105 border border-slate-900 rounded-lg py-1 shadow-[1px_1px_0px_0px_#000]">
                             {applicantsCount || job.appsCount}
                           </div>
 
                           {/* Health Indicator Badge */}
-                          <div className="col-span-2 text-right">
+                          <div className="col-span-3 sm:col-span-2 text-right">
                             {job.health === 'On Track' && (
-                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#dcfce7] border border-slate-900 text-emerald-800 text-[10px] font-bold font-mono uppercase shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)]">
+                              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-[#dcfce7] border border-slate-900 text-emerald-800 text-[9px] sm:text-[10px] font-bold font-mono uppercase shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
                                 On Track
                               </span>
                             )}
                             {job.health === 'Needs Attention' && (
-                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#fef3c7] border border-slate-900 text-amber-800 text-[10px] font-bold font-mono uppercase shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)]">
+                              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-[#fef3c7] border border-slate-900 text-amber-800 text-[9px] sm:text-[10px] font-bold font-mono uppercase shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
                                 Review
                               </span>
                             )}
                             {job.health === 'Draft' && (
-                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 border border-slate-900 text-slate-500 text-[10px] font-bold font-mono uppercase shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)]">
+                              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-slate-100 border border-slate-900 text-slate-500 text-[9px] sm:text-[10px] font-bold font-mono uppercase shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
                                 Draft
                               </span>
                             )}
                             {job.health === 'Off Track' && (
-                              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#ffe4e6] border border-slate-900 text-rose-700 text-[10px] font-bold font-mono uppercase shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] animate-pulse">
+                              <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-[#ffe4e6] border border-slate-900 text-rose-700 text-[9px] sm:text-[10px] font-bold font-mono uppercase shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] animate-pulse">
                                 Urgently
                               </span>
                             )}
@@ -637,9 +673,17 @@ export function JobsView({
               </div>
             </div>
 
+            {/* Backdrop for mobile drawer */}
+            {drawerOpen && selectedJob && (
+              <div 
+                className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 lg:hidden"
+                onClick={() => setDrawerOpen(false)}
+              />
+            )}
+
             {/* 3. Right detail edit panel drawer */}
             {drawerOpen && selectedJob && (
-              <div className="w-96 border-l-2 border-slate-900 bg-white flex flex-col h-full shrink-0 overflow-hidden" id="edit-job-drawer">
+              <div className="fixed inset-y-0 right-0 lg:static z-50 lg:z-auto w-full sm:w-96 border-l-2 border-slate-900 bg-white flex flex-col h-full shrink-0 overflow-hidden" id="edit-job-drawer">
                 {/* Header detail */}
                 <div className="p-6 border-b-2 border-slate-900 bg-[#eff6ff] flex items-center justify-between shrink-0">
                   <h3 className="font-display text-lg font-black text-slate-900">Edit Job Post</h3>

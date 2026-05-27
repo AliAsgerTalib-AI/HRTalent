@@ -5,7 +5,7 @@ import { JobsView } from './components/JobsView';
 import { CandidatesView } from './components/CandidatesView';
 import { CareersPortal } from './components/CareersPortal';
 import { SettingsView } from './components/SettingsView';
-import { Globe, Bell, HelpCircle, LayoutDashboard, Briefcase, Users, BarChart3, Settings as SettingsIcon, MessageSquare, Flame } from 'lucide-react';
+import { Globe, Bell, HelpCircle, LayoutDashboard, Briefcase, Users, BarChart3, Settings as SettingsIcon, MessageSquare, Flame, Menu, X } from 'lucide-react';
 
 import {
   INITIAL_JOBS,
@@ -67,6 +67,7 @@ export default function App() {
   // --- Active Portal/Navigation parameters ---
   const [viewPortal, setViewPortal] = useState(false); // Switch to Careers Page
   const [currentTab, setCurrentTab] = useState<'dashboard' | 'jobs' | 'candidates' | 'analytics' | 'settings'>('dashboard');
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   // Interactive controls within tabs
   const [isNewJobMode, setIsNewJobMode] = useState(false);
@@ -267,36 +268,37 @@ export default function App() {
       )}
 
       {/* Unified top Toggle bar (Interactive workspace switch) */}
-      <div className="bg-slate-900 text-[#8293b8] py-2.5 px-6 h-12 flex items-center justify-between border-b-2 border-slate-950 select-none shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-40" id="unified-top-switch-bar">
-        <div className="flex items-center gap-2 text-[10px] tracking-widest font-extrabold uppercase font-mono text-emerald-400">
+      <div className="bg-slate-900 text-[#8293b8] py-2.5 px-4 h-12 flex items-center justify-between border-b-2 border-slate-950 select-none shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] z-40" id="unified-top-switch-bar">
+        <div className="flex items-center gap-1.5 text-[10px] tracking-widest font-extrabold uppercase font-mono text-emerald-400 shrink-0">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse border border-slate-900" />
-          <span>TalentFlow Enterprise Suite</span>
+          <span className="hidden sm:inline">TalentFlow Enterprise Suite</span>
+          <span className="inline sm:hidden">TalentFlow</span>
         </div>
 
         {/* Dynamic toggle switches directly matching view */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
           <button
             onClick={() => setViewPortal(false)}
             id="bar-btn-recruiter-mode"
-            className={`text-[11px] font-mono font-black uppercase tracking-wider px-3.5 py-1.5 rounded-xl border-2 transition-all cursor-pointer ${
+            className={`text-[9px] xs:text-[10px] sm:text-[11px] font-mono font-black uppercase tracking-wider px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-xl border-2 transition-all cursor-pointer ${
               !viewPortal
-                ? 'bg-amber-200 text-slate-900 border-slate-950 shadow-[2px_2px_0px_0px_#000]'
+                ? 'bg-amber-200 text-slate-900 border-slate-950 shadow-[1.5px_1.5px_0px_0px_#000]'
                 : 'text-slate-400 border-transparent hover:text-white'
             }`}
           >
-            Recruiter Workspace
+            Recruiter<span className="hidden xs:inline"> Workspace</span>
           </button>
           
           <button
             onClick={() => setViewPortal(true)}
             id="bar-btn-candidate-mode"
-            className={`text-[11px] font-mono font-black uppercase tracking-wider px-3.5 py-1.5 rounded-xl border-2 transition-all cursor-pointer ${
+            className={`text-[9px] xs:text-[10px] sm:text-[11px] font-mono font-black uppercase tracking-wider px-2 sm:px-3.5 py-1 sm:py-1.5 rounded-xl border-2 transition-all cursor-pointer ${
               viewPortal
-                ? 'bg-amber-200 text-slate-900 border-slate-950 shadow-[2px_2px_0px_0px_#000]'
+                ? 'bg-amber-200 text-slate-900 border-slate-950 shadow-[1.5px_1.5px_0px_0px_#000]'
                 : 'text-slate-400 border-transparent hover:text-emerald-400'
             }`}
           >
-            Careers Landing Page
+            Careers<span className="hidden xs:inline"> Landing Page</span>
           </button>
         </div>
       </div>
@@ -311,43 +313,75 @@ export default function App() {
         />
       ) : (
         /* ================= RECRUITER OFFICE PLATFORM ================= */
-        <div className="flex-1 flex overflow-hidden min-h-0">
+        <div className="flex-1 flex overflow-hidden min-h-0 relative">
           
-          {/* Main Sidebar */}
-          <Sidebar
-            currentTab={currentTab}
-            setCurrentTab={(tab) => {
-              setCurrentTab(tab as any);
-              setIsNewJobMode(false);
-              setSelectedCandidateId(null);
-            }}
-            settings={settings}
-            onLogout={() => {
-              if (confirm('Are you holding an audit lock? Press OK to simulate log out and reload state.')) {
-                handleResetDatabase();
-              }
-            }}
-            onOpenSupport={() => triggerToast('📞 Technical assistance active. Message Sarah Jenkins via slack!')}
-          />
+          {/* Mobile Sidebar backdrop */}
+          {isMobileSidebarOpen && (
+            <div 
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 lg:hidden"
+              onClick={() => setIsMobileSidebarOpen(false)}
+            />
+          )}
 
-          {/* Central Workspace Canvas with unified dashboard header */}
+          {/* Main Sidebar */}
+          <div className={`
+            fixed top-0 bottom-0 left-0 h-full z-50 lg:static lg:block transition-transform duration-300 ease-in-out shrink-0
+            ${isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          `}>
+            <Sidebar
+              currentTab={currentTab}
+              setCurrentTab={(tab) => {
+                setCurrentTab(tab as any);
+                setIsNewJobMode(false);
+                setSelectedCandidateId(null);
+                setIsMobileSidebarOpen(false);
+              }}
+              settings={settings}
+              onLogout={() => {
+                if (confirm('Are you holding an audit lock? Press OK to simulate log out and reload state.')) {
+                  handleResetDatabase();
+                }
+              }}
+              onOpenSupport={() => {
+                triggerToast('📞 Technical assistance active. Message Sarah Jenkins via slack!');
+                setIsMobileSidebarOpen(false);
+              }}
+            />
+          </div>
+
+          {/* Central Workspace Workspace with unified dashboard header */}
           <div className="flex-1 flex flex-col overflow-hidden min-w-0 bg-[#faf9f5]">
             
             {/* Unified Header matching screenshots */}
-            <header className="border-b-2 border-slate-900 bg-white px-8 h-20 flex items-center justify-between shrink-0 select-none">
+            <header className="border-b-2 border-slate-900 bg-white px-4 sm:px-8 h-20 flex items-center justify-between shrink-0 select-none">
               
-              {/* Left search */}
-              <div className="flex items-center gap-4 text-xs text-slate-400 font-mono font-bold uppercase">
-                <span className="text-emerald-500 font-extrabold flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
-                  System Live Ingress
-                </span>
-                <span className="text-slate-300">|</span>
-                <span className="text-slate-900 font-sans font-black">UTC: 2026-05-27</span>
+              {/* Left search & Hamburger menu */}
+              <div className="flex items-center gap-3 text-xs text-slate-400 font-mono font-bold uppercase min-w-0">
+                <button
+                  onClick={() => setIsMobileSidebarOpen(true)}
+                  className="lg:hidden p-2 border-2 border-slate-900 rounded-xl bg-white text-slate-900 cursor-pointer shadow-[2px_2px_0px_0px_#000] hover:bg-slate-50 transition shrink-0"
+                  title="Toggle Menu"
+                >
+                  <Menu className="w-5 h-5 stroke-[2.5]" />
+                </button>
+
+                <div className="hidden md:flex items-center gap-4">
+                  <span className="text-emerald-500 font-extrabold flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
+                    System Live Ingress
+                  </span>
+                  <span className="text-slate-300">|</span>
+                  <span className="text-slate-900 font-sans font-black">UTC: 2026-05-27</span>
+                </div>
+
+                <div className="flex md:hidden items-center gap-2 text-slate-905 font-sans font-black">
+                  <span className="bg-slate-900 text-white w-8 h-8 rounded-xl flex items-center justify-center font-mono font-black text-xs border border-slate-950">TF</span>
+                  <span className="text-sm font-black tracking-tight leading-none">TalentFlow</span>
+                </div>
               </div>
 
               {/* Right indicators */}
-              <div className="flex items-center gap-6 relative">
+              <div className="flex items-center gap-2.5 sm:gap-6 relative shrink-0">
                 
                 {/* Visual feedback warning */}
                 <button
@@ -395,20 +429,20 @@ export default function App() {
                   title="Documentation Info"
                 >
                   <HelpCircle className="w-5 h-5 text-slate-800" />
-                  <span className="hidden sm:inline">Help</span>
+                  <span className="hidden md:inline">Help</span>
                 </button>
 
-                <span className="w-0.5 h-6 bg-slate-300" />
+                <span className="hidden sm:inline w-0.5 h-6 bg-slate-300" />
 
                 {/* Profile section */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <img
                     src={settings.recruiterAvatar}
                     alt="Recruiter Avatar"
-                    className="w-10 h-10 rounded-xl object-cover border-2 border-slate-900 shadow-[2px_2px_0px_0px_#000]"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-cover border-2 border-slate-900 shadow-[2px_2px_0px_0px_#000]"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="text-left hidden sm:block leading-tight">
+                  <div className="text-left hidden lg:block leading-tight">
                     <p className="text-xs font-black text-slate-900">{settings.recruiterName}</p>
                     <p className="text-[10px] text-slate-400 font-mono font-extrabold uppercase">Lead Recruiter</p>
                   </div>
